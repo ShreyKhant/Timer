@@ -1,0 +1,46 @@
+# Timer(v.0.2)
+import os
+import time
+
+print("This is a Timer")
+
+def clear_screen():
+    os.system("cls" if os.name == "nt" else "clear")
+
+def insert_value():
+    while True:
+        try:
+            duration = float(input("How many minutes: "))
+            if duration <= 0:
+                raise ValueError
+            break
+        except ValueError:
+            print("Invalid Input! Please enter a positive number.")
+
+    txt = input("Write what you want to print at the end of the timer: ")
+
+    def converter(minutes):
+        seconds = int(minutes * 60)
+        ending_time = time.time() + seconds
+
+        while True:
+            current_time = time.time()
+            remaining_time = int(ending_time - current_time)
+
+            if remaining_time <= 0:
+                break
+
+            minutes_remaining = remaining_time // 60
+            seconds_remaining = remaining_time % 60
+            
+            
+            clear_screen()
+            print(f"{minutes_remaining} minutes {seconds_remaining} seconds remaining")
+
+            time.sleep(1 - (current_time - int(current_time)))
+
+        print(txt)
+
+    converter(duration)
+
+insert_value()
