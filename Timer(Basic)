@@ -1,0 +1,31 @@
+# Timer(v.0.1)
+import os
+import time
+
+print("This is a Timer")
+
+def clear_screen():
+    os.system("cls" if os.name == "nt" else "clear")
+    
+def insert_value():
+    try:
+        duration = int(input("Seconds: "))
+    except ValueError:
+        print("Invalid Input! Only numbers/ Values to be entered")
+        insert_value()
+
+    def timer(seconds):
+        print(f"Timer set for {duration} seconds.".format(seconds))
+        starting_time = time.time()
+        ending_time = starting_time + seconds
+
+        while time.time() < ending_time:
+            remaining_time = int(ending_time - time.time())
+
+            if remaining_time != seconds:
+                clear_screen()
+                print(f"{remaining_time} seconds remaining.")
+                time.sleep(1)
+        
+    timer(duration) 
+insert_value()
