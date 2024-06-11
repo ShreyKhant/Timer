@@ -1,0 +1,44 @@
+# Timer(v.0.3)
+import time
+import os
+
+print("This is a Timer.")
+
+def clear_screen():
+    os.system("cls" if os.name == "nt" else "clear")
+
+def input_value():
+    try:
+        duration_sec = int(input("Enter number of seconds: "))
+        duration_min = int(input("Enter number of minutes: "))
+        duration_hr = int(input("Enter number of hours: "))
+        txt = input("Enter the text to be printed at the end of timer: ")
+    except ValueError:
+        print("Invalid Input! Only numbers/ Values to be entered")
+        return input_value()
+    
+    return duration_sec, duration_min, duration_hr, txt
+
+def timer(duration_sec, duration_min, duration_hr, txt):
+    total_seconds = duration_sec + (duration_min * 60) + (duration_hr * 3600)
+    
+    while total_seconds > 0:
+        remaining_hr = total_seconds // 3600
+        remaining_time = total_seconds % 3600
+        remaining_min = remaining_time // 60
+        remaining_sec = remaining_time % 60
+
+        clear_screen()
+        print(f"{remaining_hr} hours {remaining_min} minutes {remaining_sec} seconds remaining.")
+        time.sleep(1)
+        
+        total_seconds -= 1
+
+    clear_screen()
+    print(txt)
+
+def main():
+    duration_sec, duration_min, duration_hr, txt = input_value()
+    timer(duration_sec, duration_min, duration_hr, txt)
+
+main()
